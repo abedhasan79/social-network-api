@@ -14,6 +14,10 @@ const thoughtSchema = new Schema(
         createdAt:{
             type: Date,
             default: Date.now,
+            get:() =>{
+                let date = new Date();
+                return date.toLocaleString();
+            },
         },
 
         username:{
@@ -25,6 +29,7 @@ const thoughtSchema = new Schema(
     },
 
     {
+        
         toJSON:{
             getters: true,
             virtuals: true,
@@ -32,6 +37,7 @@ const thoughtSchema = new Schema(
         id: false,
     }
 );
+
 
 //Create a virtual property 'reactionCount' that gets a thoughts total number of reaction
 thoughtSchema.virtual('reactionCount').get(function(){

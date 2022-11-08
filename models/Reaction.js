@@ -23,10 +23,15 @@ const reactionSchema = new Schema(
         createdAt:{
             type: Date,
             default: Date.now,
+            get:()=>{
+                let date = new Date();
+                return date.toLocaleString();
+            }
         },
     },
 
     {
+        
         toJSON:{
             getters:true,
         },
