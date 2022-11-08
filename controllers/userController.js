@@ -19,13 +19,15 @@ module.exports = {
     getSingleUser(req, res) {
         User.findOne({ _id: req.params.userId })
             .select('-__v')
+            .populate('thoughts')
+            .populate('friends')
             .then((user) => !user ? res.status(404).json({ message: 'No user with that ID' }) : res.json(user))
             .catch((err) => res.status(500).json(err));
     },
 
     //update a user by id
     updateUser(req, res) {
-        User.findOneAndUpdate({ _id: req.params.userId }, { ...req.body }, { returnOriginal: false })
+        User.findOneAndUpdate({ _id: req.params.userId }, { ...req.body }, { returnOriginal: false, runValidators:true })
             .select('-__v')
             .then((user) => !user ? res.status(404).json({ message: 'No user with that ID' }) : res.json(user))
             .catch((err) => res.status(500).json(err));
@@ -44,7 +46,7 @@ module.exports = {
         
         User.findOneAndUpdate(
             { _id: req.params.userId },
-            { $addToSet: { friends: req.params.userId  } },
+            { $addToSet: { friends: req.params.friendId  } },
             { runValidators: true, new: true }
         )
             .then((user) => !user ? res.status(404).json({ message: 'No user with this id' }) : res.json(user))
@@ -55,7 +57,7 @@ module.exports = {
     deleteFriend(req, res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
-            { $pull: { friends: req.params.userId  } },
+            { $pull: { friends: req.params.friendId  } },
             { runValidators: true, new: true }
         )
             .then((user) => !user ? res.status(404).json({ message: 'No user with this id' }) : res.json(user))
