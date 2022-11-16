@@ -29,7 +29,7 @@ This App is an API for a social network web application where users can share th
 - Use Insomnia to test routes
 
 ### Walkthrough Video
-[click here](https://app.castify.com/watch/b668a49b-2174-4a9b-b6a1-04063de3c694) to see a walkthrough video of the app.
+[click here](https://app.castify.com/view/b668a49b-2174-4a9b-b6a1-04063de3c694) to see a walkthrough video of the app.
 
 ## License
 The Application is covered under MIT license
